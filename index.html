@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en" data-framework="jquery">
+	<head>
+		<meta charset="utf-8">
+		<title>jQuery • TodoMVC</title>
+		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+		<link rel="stylesheet" href="css/app.css">
+	</head>
+	<body>
+		<section class="todoapp">
+			<!-- todos의 전체를 의미한다. -->
+			<header class="header">
+				<h1>todos</h1>
+				<!-- todos가 속한 영역에 todos를 적어놓았다.(제목 부분) -->
+				<input class="new-todo" placeholder="What needs to be done?" autofocus>
+				 <!-- "new-todo"클래스에 "What needs to be done?"문구를 적어놓고, 페이지로 들어오면 자동으로
+				커서가 가게 해놓음. -->
+			</header>
+			<section class="main">
+				<input id="toggle-all" class="toggle-all" type="checkbox">
+				<!-- // todolist에 적혀있는 할 일을 했는지 안했는지 확인할 수 있는 checkbox이다. -->
+				<label for="toggle-all">Mark all as complete</label>
+				<!-- label의 for의 값과 양식의 id의 값이 같으면 연결된다. -->
+				<ul class="todo-list"></ul>
+				<!-- // 해야 할 일이 적혀있는 리스트부분이다. -->
+			</section>
+			<!-- app.js의 96번째 줄 -->
+			<footer class="footer"></footer>
+		</section>
+		<footer class="info">
+			<p>Double-click to edit a todo</p>
+			<p>Created by <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
+			<!-- // href는 정보를 전송해주지 않고 페이지만 바꿔줍니다. -->
+			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
+		<script id="todo-template" type="text/x-handlebars-template">
+			{{#this}}
+			<!-- this라는 배열의 길이만큼 이 this태그 안에 있는 html태그들은 반복되게 된다. -->
+			<!-- handlebars.js와 연동된다. -->
+			<li {{#if completed}}class="completed"{{/if}} data-id="{{id}}">
+				<div class="view">
+					<input class="toggle" type="checkbox" {{#if completed}}checked{{/if}}>
+					<label>{{title}}</label>
+					<!-- // 바인딩 구조-->
+					<button class="destroy"></button>
+					<!-- todo옆에 있는 x버튼을 의미한다. -->
+				</div>
+				<input class="edit" value="{{title}}">
+			</li>
+		{{/this}}
+		</script>
+		<script id="footer-template" type="text/x-handlebars-template">
+			<span class="todo-count"><strong>{{activeTodoCount}}</strong> {{activeTodoWord}} left</span>
+			 <!-- todolist에 할 일을 적을 때 해야 할 일의 횟수와 몇 개 가 남아있는지 나온다.(ex. 2 items left) -->
+			 <!-- // activeTodoCount=2, activeTodoWord= items -->
+			<ul class="filters">
+				<li>
+					<a {{#eq filter 'all'}}class="selected"{{/eq}} href="#/all">All</a>
+				</li>
+				<li>
+					<a {{#eq filter 'active'}}class="selected"{{/eq}}href="#/active">Active</a>
+				</li>
+				<li>
+					<a {{#eq filter 'completed'}}class="selected"{{/eq}}href="#/completed">Completed</a>
+				</li>
+			</ul>
+			{{#if completedTodos}}<button class="clear-completed">Clear completed</button>{{/if}}
+		</script>
+		<script src="node_modules/todomvc-common/base.js"></script>
+		<script src="node_modules/jquery/dist/jquery.js"></script>
+		<script src="node_modules/handlebars/dist/handlebars.js"></script>
+		<script src="node_modules/director/build/director.js"></script>
+		<script src="js/app.js"></script>
+	</body>
+</html>
